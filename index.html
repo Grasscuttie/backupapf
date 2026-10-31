@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>All Pirate File</title>
+<meta name="description" content="All File Art, Psd, Ld2, and etc.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+/* Dock bawah: hanya tampil di mobile (<=760px) */
+.dock{display:none}
+@media(max-width:760px){
+ .dock{display:block;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+ .dock[hidden]{display:none}
+ .dock-x{position:absolute;right:0;top:-34px;width:44px;height:34px;display:grid;place-items:center;background:var(--bg);color:var(--head);border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;font-size:18px;line-height:1;cursor:pointer}
+ .dock-box{display:flex;align-items:center;justify-content:center;min-height:50px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--alt);font-size:15px;text-align:center;overflow:hidden}
+ .dock-tk{padding:0;border:0;background:none;min-height:0}
+ .dock-tk .s-tk{padding:13px 16px;font-size:15px}
+ .dock-box img{display:block;max-width:100%;height:auto}
+ .w-tk{display:none}
+ .dock.min{padding:0;border:0;background:transparent;box-shadow:none;pointer-events:none}
+ .dock.min .dock-box{display:none}
+ .dock.min .dock-x{top:auto;bottom:env(safe-area-inset-bottom,0px);pointer-events:auto;box-shadow:0 -2px 8px rgba(0,0,0,.15)}
+ body.has-dock{padding-bottom:84px}
+ /* Perbaikan: cegah halaman melebar melebihi layar di HP */
+ .layout{grid-template-columns:minmax(0,1fr)}
+ .layout>*{min-width:0}
+}
+html,body{overflow-x:hidden}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+ <button id="menu" type="button" aria-label="Menu topik" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+ <a class="logo" href="/">All Pirate File</a>
+ <nav><a href="/?tag=category%3AArt">Art</a><a href="?tag=category%3APsd">Psd</a><a href="/?tag=category%3Asmr">Asmr</a><a href="/?tag=category%3ACosplayer">Cosplayer</a><a href="/?tag=category%3ALive2d">Live2d</a><a href="/?tag=category%3A2d Animation">2D Animation</a><a href="/?tag=category%3A3d Animation">3D Animation</a></nav>
+ <div class="tools">
+  <div class="sbox">
+   <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+   <input id="q" placeholder="Cari artikel…" aria-label="Cari artikel" autocomplete="off">
+   <div class="sres" id="sres"></div>
+  </div>
+  <button id="sbtn" aria-label="Cari"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <button id="theme" aria-label="Mode gelap"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+ </div>
+</div>
+</header>
+<div class="topics" id="topics"></div>
+<main class="wrap layout" id="layout">
+ <section>
+  <div class="slider" id="slider" hidden>
+   <div class="track" id="track"></div>
+   <button class="arr prev" id="sprev" aria-label="Sebelumnya"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+   <button class="arr next" id="snext" aria-label="Berikutnya"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+   <div class="dots" id="dots"></div>
+  </div>
+  <div class="bx bx-wide" id="bx-top">
+   <span class="bx-label">Sponsor</span>
+   <div class="bx-body">
+    <!-- BANNER SPONSOR: ganti baris "bx-ph" di bawah dengan banner Anda, contoh:
+         <a href="https://ALAMAT-SPONSOR" target="_blank" rel="noopener"><img src="/images/p1.webp" alt="Sponsor" width="728" height="90"></a>
+         Tips: beri nama file netral (p1.webp, p2.webp), jangan memakai kata iklan/ads/banner/sponsor di nama file atau folder. -->
+    <a href="https://discord.gg/US3DcZ9XZt" target="_blank" rel="noopener"><img src="/images/p1.webp" alt="Sponsor" width="728" height="90"></a>
+   </div>
+  </div>
+  <div class="title"><h2 id="ttl">Latest Posts</h2><i></i>
+   <button id="view" aria-label="Ganti tampilan"><span id="vl">List</span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></button></div>
+  <div class="posts" id="posts"><div class="empty">Memuat…</div></div>
+ </section>
+ <aside>
+  <div class="w w-dc"><h4>Discord Server</h4>
+ <iframe loading="lazy" src="https://discord.com/widget?id=1497590644888309771&theme=dark" width="100%" height="500" style="border:0;border-radius:8px;max-width:100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+</div>
+  <div class="bx bx-side" id="bx-side">
+   <span class="bx-label">Sponsor</span>
+   <div class="bx-body">
+    <!-- BANNER SPONSOR 300x250: ganti baris "bx-ph" di bawah, contoh:
+         <a href="https://ALAMAT-SPONSOR" target="_blank" rel="noopener"><img src="/images/p2.webp" alt="Sponsor" width="300" height="250"></a> -->
+    <a class="bx-ph" href="https://discord.gg/GkP4rbEksw" target="_blank" rel="noopener">Ruang iklan tersedia · hubungi kami</a>
+   </div>
+  </div>
+  <div class="w"><h4>Ikuti Kami</h4><div class="social">
+   <a class="s-dc" href="https://discord.gg/GkP4rbEksw" target="_blank" rel="noopener">Discord</a>
+   <a class="s-wa" href="https://whatsapp.com/channel/0029VbD7kFgK5cDLmIhYHc2C" target="_blank" rel="noopener">WhatsApp</a>
+   <a class="s-fb" href="https://www.facebook.com/profile.php?id=61578062415881" target="_blank" rel="noopener">Facebook</a>
+  </div></div>
+  <div class="w w-tk"><h4>Dukung Kami</h4><div class="donate">
+   <!-- TEMPEL KODE EMBED TRAKTEER DI SINI (salin dari dashboard Trakteer) -->
+   <a class="s-tk" href="https://trakteer.id/Ridhocuking/tip" target="_blank" rel="noopener">Traktir di Trakteer</a>
+  </div></div>
+ </aside>
+</main>
+<footer><div class="wrap"><span>© 2021 Fletro Pro. All rights reserved.</span><span>All Pirate File</span></div></footer>
+<!-- DOCK BAWAH (mobile saja): berisi tombol Trakteer, bisa ditutup dengan X -->
+<div class="dock" id="dock" hidden>
+ <button class="dock-x" id="dock-x" type="button" aria-label="Tutup">&#10005;</button>
+ <div class="dock-box dock-tk"><a class="s-tk" href="https://trakteer.id/Ridhocuking/tip" target="_blank" rel="noopener">Traktir di Trakteer</a></div>
+</div>
+<script>
+(function(){
+ var d=document.getElementById('dock'),x=document.getElementById('dock-x');
+ if(!d||!x)return;
+ var K='dockX:'+location.pathname,min=false;
+ try{min=sessionStorage.getItem(K)==='1'}catch(e){}
+ var UP='<svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg>',XX='&#10005;';
+ function set(m){
+  min=m;d.classList.toggle('min',m);document.body.classList.toggle('has-dock',!m);
+  x.innerHTML=m?UP:XX;x.setAttribute('aria-label',m?'Buka':'Tutup');
+  try{sessionStorage.setItem(K,m?'1':'0')}catch(e){}
+ }
+ d.hidden=false;set(min);
+ x.addEventListener('click',function(){set(!min)});
+})();
+</script>
+<script src="/js/app.js"></script>
+<script src="/js/extras.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

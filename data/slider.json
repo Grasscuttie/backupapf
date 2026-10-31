@@ -1,0 +1,26 @@
+[
+  {
+    "title": "七氏",
+    "label": "七氏",
+    "image": "/images/cover-slider1.webp",
+    "url": "/?tag=artist%3A七氏"
+  },
+  {
+    "title": "Maplestar",
+    "label": "Maplestar",
+    "image": "/images/cover-slider2.webp",
+    "url": "/?tag=artist%3AMaplestar"
+  },
+  {
+    "title": "CosplayTales",
+    "label": "CosplayTales",
+    "image": "/images/cover-slider1.webp",
+    "url": "/?tag=cosplayer%3ACosplayTales"
+  },
+  {
+    "title": "Ppolar",
+    "label": "Ppolar",
+    "image": "/images/cover-slider4.webp",
+    "url": "/?label=Ppolar"
+  }
+]
